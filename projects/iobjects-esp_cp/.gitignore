@@ -1,0 +1,7 @@
+/build/
+/.cproject
+/.project
+/.settings/
+/sdkconfig.old
+/Debug/
+/Release/

@@ -1,0 +1,8 @@
+image: ubuntu:18.04
+pipelines:
+  default:
+    - step:
+        name: test code style
+        script:
+          - apt-get update && apt-get install -y astyle git exuberant-ctags
+          - ./tools/checkstyle/check_all.sh --astyle-all

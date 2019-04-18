@@ -1,0 +1,25 @@
+menu "EDBG"
+
+config EDBG_ENABLED
+    bool "EDBG is used or not"
+    default N
+
+config EDBG_SWCLK_GPIO
+    int "EDBG SWCLK GPIO"
+    depends on EDBG_ENABLED
+    range 0 33
+    default 18
+
+config EDBG_SWDIO_GPIO
+    int "EDBG SWDIO GPIO"
+    depends on EDBG_ENABLED
+    range 0 33
+    default 4
+
+config EDBG_RESET_GPIO
+    int "EDBG RESET GPIO"
+    depends on EDBG_ENABLED
+    range 0 33
+    default 12
+
+endmenu

@@ -1,0 +1,1 @@
+void kws_fs_create(const char* name);

@@ -1,0 +1,19 @@
+menu "STPM32"
+
+config STPM32_ENABLED
+    bool "STPM32 is used or not"
+    default N
+
+config STPM32_KSI_SHUNT_MILLIOHM
+    int "KSI shunt in milliohm"
+    range 1 100
+    depends on STPM32_ENABLED
+    default 5
+
+config STPM32_CALIBRATION
+    int "Calibration"
+    range 1 150
+    depends on STPM32_ENABLED
+    default 96
+
+endmenu

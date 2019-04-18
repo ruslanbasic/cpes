@@ -1,0 +1,31 @@
+diff --git a/components/bootloader/subproject/main/bootloader_start.c b/components/bootloader/subproject/main/bootloader_start.c
+index 483ebaca4..cd4e56632 100644
+--- a/components/bootloader/subproject/main/bootloader_start.c
++++ b/components/bootloader/subproject/main/bootloader_start.c
+@@ -91,7 +91,7 @@ static int selected_boot_partition(const bootloader_state_t *bs)
+         // Factory firmware.
+ #ifdef CONFIG_BOOTLOADER_FACTORY_RESET
+         if (bootloader_common_check_long_hold_gpio(CONFIG_BOOTLOADER_NUM_PIN_FACTORY_RESET, CONFIG_BOOTLOADER_HOLD_TIME_GPIO) == 1) {
+-            ESP_LOGI(TAG, "Detect a condition of the factory reset");
++            ESP_LOGW(TAG, "Detect a condition of the factory reset");
+             bool ota_data_erase = false;
+ #ifdef CONFIG_BOOTLOADER_OTA_DATA_ERASE
+             ota_data_erase = true;
+diff --git a/components/bootloader_support/src/bootloader_common.c b/components/bootloader_support/src/bootloader_common.c
+index 36b4b8ba2..f00d97167 100644
+--- a/components/bootloader_support/src/bootloader_common.c
++++ b/components/bootloader_support/src/bootloader_common.c
+@@ -48,11 +48,11 @@ esp_comm_gpio_hold_t bootloader_common_check_long_hold_gpio(uint32_t num_pin, ui
+     }
+     gpio_pad_pullup(num_pin);
+     uint32_t tm_start = esp_log_early_timestamp();
+-    if (GPIO_INPUT_GET(num_pin) == 1) {
++    if (GPIO_INPUT_GET(num_pin) == 0) {
+         return GPIO_NOT_HOLD;
+     }
+     do {
+-        if (GPIO_INPUT_GET(num_pin) != 0) {
++        if (GPIO_INPUT_GET(num_pin) != 1) {
+             return GPIO_SHORT_HOLD;
+         }
+     } while (delay_sec > ((esp_log_early_timestamp() - tm_start) / 1000L));
